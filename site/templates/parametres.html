@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block titre %}Paramètres{% endblock %}
+
+{% block contenu %}
+
+<div class="charts-row">
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Informations projet</div>
+            <div class="chart-badge">v1.0</div>
+        </div>
+        <div class="stat-list">
+            <div class="stat-item"><span class="stat-name">Nom</span><span class="stat-val">SenEmploi</span></div>
+            <div class="stat-item"><span class="stat-name">Description</span><span class="stat-val">Analyse des offres d'emploi au Sénégal</span></div>
+            <div class="stat-item"><span class="stat-name">Version</span><span class="stat-val">1.0.0</span></div>
+            <div class="stat-item"><span class="stat-name">Dernière mise à jour</span><span class="stat-val">Avril 2026</span></div>
+            <div class="stat-item"><span class="stat-name">Total offres analysées</span><span class="stat-val">4 904</span></div>
+        </div>
+    </div>
+
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Sources de données</div>
+            <div class="chart-badge">4 sites</div>
+        </div>
+        <div class="stat-list">
+            <div class="stat-item"><span class="stat-name">SenJob</span><span class="stat-val" style="color:#185fa5">senjob.com</span></div>
+            <div class="stat-item"><span class="stat-name">Emploi Dakar</span><span class="stat-val" style="color:#185fa5">emploi-dakar.com</span></div>
+            <div class="stat-item"><span class="stat-name">GoAfrica</span><span class="stat-val" style="color:#185fa5">goafrica.com</span></div>
+            <div class="stat-item"><span class="stat-name">SenJob</span><span class="stat-val" style="color:#185fa5">senjob.sn</span></div>
+        </div>
+    </div>
+</div>
+
+<div class="chart-card">
+    <div class="chart-header">
+        <div class="chart-title">Guide d'utilisation</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-top:8px">
+        <div style="padding:16px;background:#f0f4f8;border-radius:8px">
+            <div style="font-size:13px;font-weight:500;color:#0d2b4e;margin-bottom:8px">Vue générale</div>
+            <p style="font-size:12px;color:#6b7f99;line-height:1.6">Page d'accueil avec les statistiques avant et après nettoyage des données. Visualisez les 5 premières lignes du dataset nettoyé.</p>
+        </div>
+        <div style="padding:16px;background:#f0f4f8;border-radius:8px">
+            <div style="font-size:13px;font-weight:500;color:#0d2b4e;margin-bottom:8px">Analyse</div>
+            <p style="font-size:12px;color:#6b7f99;line-height:1.6">Consultez les KPIs principaux et les graphiques interactifs : secteurs, contrats, compétences et évolution mensuelle des offres.</p>
+        </div>
+        <div style="padding:16px;background:#f0f4f8;border-radius:8px">
+            <div style="font-size:13px;font-weight:500;color:#0d2b4e;margin-bottom:8px">Assistant IA</div>
+            <p style="font-size:12px;color:#6b7f99;line-height:1.6">Posez vos questions sur les données d'emploi au Sénégal. L'assistant IA vous donnera des réponses basées sur les données analysées.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

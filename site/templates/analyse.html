@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block titre %}Analyse{% endblock %}
+
+{% block contenu %}
+
+<div class="kpi-row">
+    <div class="kpi-card">
+        <div class="kpi-label">Secteur dominant</div>
+        <div class="kpi-val">{{ kpi_secteur.secteur }}</div>
+        <div class="kpi-meta">{{ kpi_secteur.nb_offres }} offres</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#185fa5">
+        <div class="kpi-label">Compétence top</div>
+        <div class="kpi-val">{{ kpi_competence.competence }}</div>
+        <div class="kpi-meta">{{ kpi_competence.nb_offres }} offres</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#1a7a4a">
+        <div class="kpi-label">Ville top</div>
+        <div class="kpi-val">{{ kpi_ville.ville }}</div>
+        <div class="kpi-meta">{{ kpi_ville.nb_offres }} offres</div>
+    </div>
+    <div class="kpi-card" style="border-top-color:#854f0b">
+        <div class="kpi-label">Contrat dominant</div>
+        <div class="kpi-val">{{ kpi_contrat.contrat }}</div>
+        <div class="kpi-meta">{{ kpi_contrat.nb_offres }} offres</div>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Top 5 secteurs</div>
+            <div class="chart-badge">par volume</div>
+        </div>
+        <canvas id="chartSecteurs" height="200"></canvas>
+    </div>
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Répartition contrats</div>
+            <div class="chart-badge">{{ kpi_contrat.contrat }} dominant</div>
+        </div>
+        <canvas id="chartContrats" height="200"></canvas>
+    </div>
+</div>
+
+<div class="charts-row">
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Top compétences</div>
+        </div>
+        <canvas id="chartCompetences" height="200"></canvas>
+    </div>
+    <div class="chart-card">
+        <div class="chart-header">
+            <div class="chart-title">Évolution mensuelle</div>
+        </div>
+        <canvas id="chartEvolution" height="200"></canvas>
+    </div>
+</div>
+
+<script>
+var dataSecteurs = {{ data_secteurs | safe }};
+var dataCompetences = {{ data_competences | safe }};
+var dataContrats = {{ data_contrats | safe }};
+var dataEvolution = {{ data_evolution | safe }};
+
+new Chart(document.getElementById('chartSecteurs'), {
+    type: 'bar',
+    data: {
+        labels: dataSecteurs.labels.slice(-5).map(l => l.length > 20 ? l.substring(0, 20) + '...' : l),
+        datasets: [{
+            data: dataSecteurs.values.slice(-5),
+            backgroundColor: '#0d2b4e',
+            borderRadius: 4
+        }]
+    },
+    options: {
+        indexAxis: 'y',
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { color: '#edf2f7' }, ticks: { color: '#6b7f99' } },
+            y: { grid: { display: false }, ticks: { color: '#6b7f99' } }
+        }
+    }
+});
+
+new Chart(document.getElementById('chartContrats'), {
+    type: 'doughnut',
+    data: {
+        labels: dataContrats.labels,
+        datasets: [{
+            data: dataContrats.values,
+            backgroundColor: ['#0d2b4e', '#4a9eda', '#b5d4f4', '#dce3ec', '#6b7f99', '#185fa5'],
+            borderWidth: 0
+        }]
+    },
+    options: {
+        plugins: {
+            legend: {
+                position: 'right',
+                labels: { color: '#4a6080', font: { size: 11 }, boxWidth: 12 }
+            }
+        }
+    }
+});
+
+new Chart(document.getElementById('chartCompetences'), {
+    type: 'bar',
+    data: {
+        labels: dataCompetences.labels.slice(0, 6),
+        datasets: [{
+            data: dataCompetences.values.slice(0, 6),
+            backgroundColor: '#4a9eda',
+            borderRadius: 4
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7f99' } },
+            y: { grid: { color: '#edf2f7' }, ticks: { color: '#6b7f99' } }
+        }
+    }
+});
+
+new Chart(document.getElementById('chartEvolution'), {
+    type: 'bar',
+    data: {
+        labels: dataEvolution.labels,
+        datasets: [{
+            data: dataEvolution.values,
+            backgroundColor: dataEvolution.values.map(v => v === Math.max(...dataEvolution.values) ? '#0d2b4e' : '#b5d4f4'),
+            borderRadius: 4
+        }]
+    },
+    options: {
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { grid: { display: false }, ticks: { color: '#6b7f99', font: { size: 10 } } },
+            y: { grid: { color: '#edf2f7' }, ticks: { color: '#6b7f99' } }
+        }
+    }
+});
+</script>
+
+{% endblock %}

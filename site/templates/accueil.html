@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block titre %}Vue générale{% endblock %}
+
+{% block contenu %}
+
+<div class="avant-apres">
+    <div class="ba-card">
+        <div class="ba-header">
+            <span class="ba-badge avant-badge">Avant nettoyage</span>
+        </div>
+        <div class="ba-stat"><span style="color:#6b7f99">Lignes</span><span style="color:#a32d2d;font-weight:500">{{ stats_avant.lignes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Colonnes</span><span style="color:#4a6080;font-weight:500">{{ stats_avant.colonnes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Doublons</span><span style="color:#a32d2d;font-weight:500">{{ stats_avant.doublons }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Valeurs manquantes</span><span style="color:#a32d2d;font-weight:500">{{ stats_avant.valeurs_manquantes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Contrats normalisés</span><span style="color:#a32d2d;font-weight:500">Non</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Compétences extraites</span><span style="color:#a32d2d;font-weight:500">Non</span></div>
+    </div>
+
+    <div class="ba-card">
+        <div class="ba-header">
+            <span class="ba-badge apres-badge">Après nettoyage</span>
+        </div>
+        <div class="ba-stat"><span style="color:#6b7f99">Lignes</span><span style="color:#3b6d11;font-weight:500">{{ stats_apres.lignes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Colonnes</span><span style="color:#4a6080;font-weight:500">{{ stats_apres.colonnes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Doublons</span><span style="color:#3b6d11;font-weight:500">{{ stats_apres.doublons }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Valeurs manquantes</span><span style="color:#3b6d11;font-weight:500">{{ stats_apres.valeurs_manquantes }}</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Contrats normalisés</span><span style="color:#3b6d11;font-weight:500">Oui</span></div>
+        <div class="ba-stat"><span style="color:#6b7f99">Compétences extraites</span><span style="color:#3b6d11;font-weight:500">Oui (NLP)</span></div>
+    </div>
+</div>
+
+<div class="chart-card">
+    <div class="chart-header">
+        <div class="chart-title">Aperçu des données nettoyées</div>
+        <div class="chart-badge">5 premières lignes</div>
+    </div>
+    <div style="overflow-x:auto">
+        <table style="width:100%;border-collapse:collapse;font-size:12px">
+            <thead>
+                <tr>
+                    {% for col in colonnes %}
+                    <th style="text-align:left;padding:8px 12px;border-bottom:1px solid #dce3ec;color:#6b7f99;font-weight:500;white-space:nowrap">{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for ligne in tableau %}
+                <tr style="border-bottom:0.5px solid #edf2f7">
+                    {% for col in colonnes %}
+                    <td style="padding:8px 12px;color:#4a6080;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{{ ligne[col] }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

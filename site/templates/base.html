@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SenEmploi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+</head>
+<body>
+<div class="app">
+    <div class="sidebar">
+        <div class="logo">
+            <div class="logo-text">SenEmploi</div>
+            <div class="logo-sub">Tableau de bord</div>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Analyse</div>
+            <a href="/" class="nav-item {% if request.path == '/' %}active{% endif %}">
+                <i class="ti ti-layout-dashboard"></i>Vue générale
+            </a>
+            <a href="/analyse" class="nav-item {% if request.path == '/analyse' %}active{% endif %}">
+    <i class="ti ti-chart-bar"></i>Analyse
+</a>
+        </div>
+        <div class="nav-section">
+            <div class="nav-label">Outils</div>
+            <a href="/ia" class="nav-item {% if request.path == '/ia' %}active{% endif %}">
+                <i class="ti ti-robot"></i>Assistant IA
+            </a>
+            <a href="/parametres" class="nav-item {% if request.path == '/parametres' %}active{% endif %}">
+                <i class="ti ti-settings"></i>Paramètres
+            </a>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="topbar">
+            <div>
+                <div class="page-title">{% block titre %}{% endblock %}</div>
+                <div class="page-sub">Analyse des offres d'emploi — Sénégal</div>
+            </div>
+            <div class="topbar-right">
+                <div class="filter-btn"><i class="ti ti-calendar"></i>2024</div>
+                <div class="filter-btn"><i class="ti ti-map-pin"></i>Toutes villes</div>
+            </div>
+        </div>
+
+        <div class="content">
+            {% block contenu %}{% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>
