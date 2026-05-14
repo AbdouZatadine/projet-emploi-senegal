@@ -5,3 +5,5 @@ python-dotenv
 plotly
 gunicorn
 google-generativeai
+matplotlib
+seaborn
